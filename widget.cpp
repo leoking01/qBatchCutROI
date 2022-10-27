@@ -193,6 +193,17 @@ void Widget::on_pushButton_cut_clicked()
     QStringList  string_list  ;
     addFolderImages( indir.c_str() ,   string_list  ) ;
 
+    // //方法1： 如果是在栈上，那么实际上是在主线程中执行。
+    if( 0 )
+    {
+        QDiceThread  qt ;
+        qt.indir =  indir ;
+        qt.outdir = outdir ;
+        qt.roi = roi;
+        qt.string_list = string_list;
+        qt.start( );
+        qt.wait();
+    }
     if( 1 )
     {
         QDiceThread *qt = new QDiceThread ;
@@ -204,9 +215,9 @@ void Widget::on_pushButton_cut_clicked()
         //方法1：
         if( 1 )
         {
-               qt->start(QThread::Priority::HighPriority);
+            qt->start(QThread::Priority::HighPriority);
         }
-//方法2：
+        //方法2：
         if( 0 )
         {
             QThread * thread = new QThread;
@@ -215,7 +226,7 @@ void Widget::on_pushButton_cut_clicked()
             thread->start();
         }
     }
-//方法3：
+    //方法3：
     if( 0 )
     {
         //std::thread t1(threadfun1);
@@ -224,7 +235,7 @@ void Widget::on_pushButton_cut_clicked()
         std::cout << "join" << std::endl;
         t2.detach();	// 将线程 t2 与主线程分离
     }
-//方法4：  threadPools
+    //方法4：  threadPools
 
 }
 
