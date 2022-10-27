@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Widget</string>
+   <string>qBatchCutROI</string>
   </property>
   <widget class="QPushButton" name="pushButton_cut">
    <property name="geometry">

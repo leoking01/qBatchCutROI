@@ -1,6 +1,6 @@
 ﻿#include "widget.h"
 #include "./ui_widget.h"
-
+#include "QIcon"
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
@@ -14,7 +14,7 @@ Widget::Widget(QWidget *parent)
     ui->lineEdit_wid->setText(  "840" );
     ui->lineEdit_hei->setText(  "540" );
 
-
+setWindowIcon(QIcon("qrc:/resources/perfSnap.ico"));
 
 }
 

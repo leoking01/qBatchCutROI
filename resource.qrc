@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/knife_iqy.jpg</file>
+        <file>resources/perfSnap.ico</file>
+    </qresource>
+</RCC>
