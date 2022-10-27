@@ -242,7 +242,7 @@ set(PROJECT_SOURCES
         main.cpp
         widget.cpp
         widget.h
-        widget.ui
+        widget.ui  qdicethread.cpp  qdicethread.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

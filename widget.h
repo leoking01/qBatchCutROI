@@ -17,8 +17,8 @@ public:
 
     void  Log_Text_Display(QString text);
 
-signals:
-    void mysignal(QString  );//信号
+//signals:
+//    void mysignal(QString  );//信号
 
 private slots:
     void on_pushButton_cut_clicked();
@@ -27,4 +27,7 @@ void  myslot(QString text) ;
 private:
     Ui::Widget *ui;
 };
+ extern  Widget *w;
+
+
 #endif // WIDGET_H

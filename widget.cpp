@@ -7,14 +7,14 @@ Widget::Widget(QWidget *parent)
 {
     ui->setupUi(this);
 
-    ui->lineEdit_inDir->setText( "E:/AAA_LK_study/CamerUnsitorInfferProj/bin"  ) ;
-    ui->lineEdit_outdir->setText( "E:/AAA_LK_study/CamerUnsitorInfferProj/binBatchCutOut"  ) ;
+    ui->lineEdit_inDir->setText( "../data/bin"  ) ;
+    ui->lineEdit_outdir->setText( "../data/binBatchCutOut"  ) ;
     ui->lineEdit_left->setText(  "0" );
     ui->lineEdit_top->setText(  "0" );
     ui->lineEdit_wid->setText(  "840" );
     ui->lineEdit_hei->setText(  "540" );
 
-       connect(this,SIGNAL(mysignal(QString)), this ,SLOT(myslot(QString)));
+
 
 }
 
@@ -157,98 +157,25 @@ void Widget::myslot(QString text)
 
 
 //、、------------------------------------
-#include    <QThread>
-
-class QDiceThread : public QThread
-{
-    Q_OBJECT
-private:
-    int     m_seq=0;//掷骰子次数序号
-    int     m_diceValue;//骰子点数
-    bool    m_Paused=true; //掷一次骰子
-    bool    m_stop=false; //停止线程
-protected:
-    void    run() Q_DECL_OVERRIDE;  //线程任务
-public:
-    QDiceThread();
-
-    void    diceBegin();//掷一次骰子
-    void    dicePause();//暂停
-    void    stopThread(); //结束线程
-signals:
-    void    newValue(int seq,int diceValue); //产生新点数的信号
-};
+#include <thread>
 #include    <QTime>
+#include "qdicethread.h"
 
-QDiceThread::QDiceThread()
-{
+void
+threadfun2(std::string indir, std::string outdir, cv::Rect  roi,  QStringList  string_list ){
+    QDiceThread  qt ;
+    qt.indir =  indir ;
+    qt.outdir = outdir ;
+    qt.roi = roi;
+    qt.string_list = string_list;
 
+    //       qt.run();
+
+    qt.start(QThread::Priority::HighPriority);
+    qt.wait();
 }
 
-void QDiceThread::diceBegin()
-{ //开始掷骰子
-    m_Paused=false;
-}
 
-void QDiceThread::dicePause()
-{//暂停掷骰子
-    m_Paused=true;
-}
-
-void QDiceThread::stopThread()
-{//停止线程
-    m_stop=true;
-}
-
-void QDiceThread::run()
-{//线程任务
-    m_stop=false;//启动线程时令m_stop=false
-    m_seq=0; //掷骰子次数
-    qsrand(QTime::currentTime().msec());//随机数初始化，qsrand是线程安全的
-
-//    while(!m_stop)//循环主体
-//    {
-//        if (!m_Paused)
-//        {
-//            m_diceValue=qrand(); //获取随机数
-//            m_diceValue=(m_diceValue % 6)+1;
-//            m_seq++;
-//            emit newValue(m_seq,m_diceValue);  //发射信号
-//        }
-//        msleep(500); //线程休眠500ms
-//    }
-
-
-    int idCont = 0 ;
-    for(QStringList::Iterator  it =string_list.begin();it!=string_list.end();it++ ){
-
-        std::string fileIN = indir + "/" + it->toStdString() ;
-        std::string fileSave = outdir + "/" + it->toStdString() ;
-        std::cout<< "now proc ( " << idCont<< " ," << nums<< " ), "<< fileIN<<  std::endl;
-        procOneIMg( fileIN , fileSave ,roi );
-        idCont ++ ;
-
-
-        QTime timeNow = QTime::currentTime();
-
-        QString  time = timeNow.toString() + QString("__");
-        static  int  id = 0 ;
-        id++ ;
-        time +=  QString::number( id ) ;
-       emit mysignal(  QString("child get now time = ")+ time + QString(", finish proc file :  ") + QString(fileIN.c_str()) + "\n"  );
-
-//        Log_Text_Display("finish proc file : "+ QString(fileIN.c_str()) + "\n" );
-        //        ui->plainTextEdit->appendPlainText( "finish proc file : "+ QString(fileIN.c_str())  ) ;
-        //         ui->plainTextEdit->
-    }
-
-
-
-//  在  m_stop==true时结束线程任务
-//    quit();//相当于  exit(0),退出线程的事件循环
-}
-
-//、、---------------------------
 
 void Widget::on_pushButton_cut_clicked()
 {
@@ -266,31 +193,39 @@ void Widget::on_pushButton_cut_clicked()
     QStringList  string_list  ;
     addFolderImages( indir.c_str() ,   string_list  ) ;
 
-    int nums =  string_list.size() ;
-    std::cout<< "nums= " << nums << std::endl;
+    if( 1 )
+    {
+        QDiceThread *qt = new QDiceThread ;
+        qt->indir =  indir ;
+        qt->outdir = outdir ;
+        qt->roi = roi;
+        qt->string_list = string_list;
 
-//    int idCont = 0 ;
-//    for(QStringList::Iterator  it =string_list.begin();it!=string_list.end();it++ ){
+        //方法1：
+        if( 1 )
+        {
+               qt->start(QThread::Priority::HighPriority);
+        }
+//方法2：
+        if( 0 )
+        {
+            QThread * thread = new QThread;
+            connect(thread, SIGNAL(started()), qt , SLOT(runThread()));
+            qt->moveToThread( thread);
+            thread->start();
+        }
+    }
+//方法3：
+    if( 0 )
+    {
+        //std::thread t1(threadfun1);
+        std::thread t2(threadfun2, indir, outdir, roi, string_list );
+        //   t1.join();		// 等待线程 t1 执行完毕
+        std::cout << "join" << std::endl;
+        t2.detach();	// 将线程 t2 与主线程分离
+    }
+//方法4：  threadPools
 
-//        std::string fileIN = indir + "/" + it->toStdString() ;
-//        std::string fileSave = outdir + "/" + it->toStdString() ;
-//        std::cout<< "now proc ( " << idCont<< " ," << nums<< " ), "<< fileIN<<  std::endl;
-//        procOneIMg( fileIN , fileSave ,roi );
-//        idCont ++ ;
-
-
-//        QTime timeNow = QTime::currentTime();
-
-//        QString  time = timeNow.toString() + QString("__");
-//        static  int  id = 0 ;
-//        id++ ;
-//        time +=  QString::number( id ) ;
-//       emit mysignal(  QString("child get now time = ")+ time + QString(", finish proc file :  ") + QString(fileIN.c_str()) + "\n"  );
-
-////        Log_Text_Display("finish proc file : "+ QString(fileIN.c_str()) + "\n" );
-//        //        ui->plainTextEdit->appendPlainText( "finish proc file : "+ QString(fileIN.c_str())  ) ;
-//        //         ui->plainTextEdit->
-//    }
 }
 
 
@@ -322,3 +257,6 @@ void Widget::Log_Text_Display(QString text)
     }
 }
 
+
+
+Widget *w = NULL;
