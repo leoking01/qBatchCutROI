@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>781</width>
+    <height>487</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Widget</string>
+  </property>
+  <widget class="QPushButton" name="pushButton_cut">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>270</y>
+     <width>93</width>
+     <height>29</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>cut</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_inDir">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>30</y>
+     <width>701</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_inDir">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>69</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>inDir</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_outdir">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>90</y>
+     <width>701</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_outdir">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>90</y>
+     <width>69</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>outdir</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_left">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>160</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_left">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>160</y>
+     <width>69</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>left</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_top">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>160</y>
+     <width>69</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>top</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_wid">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>200</y>
+     <width>69</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>wid</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_hei">
+   <property name="geometry">
+    <rect>
+     <x>430</x>
+     <y>200</y>
+     <width>69</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>hei</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_top">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>160</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_wid">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>200</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_hei">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>200</y>
+     <width>113</width>
+     <height>25</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="plainTextEdit">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>340</y>
+     <width>731</width>
+     <height>131</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
