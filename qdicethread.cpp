@@ -1,7 +1,7 @@
 ﻿#include "qdicethread.h"
 #include    <QTime>
 
-
+#pragma execution_character_set("utf-8")
 #include "opencv2/opencv.hpp"
 #include "string"
 #include "iostream"

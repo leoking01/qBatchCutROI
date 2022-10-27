@@ -1,6 +1,8 @@
 ﻿#include "widget.h"
 #include "./ui_widget.h"
 #include "QIcon"
+
+#pragma execution_character_set("utf-8")
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
